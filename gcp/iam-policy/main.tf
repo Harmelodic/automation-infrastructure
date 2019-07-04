@@ -22,13 +22,16 @@ resource "google_project_iam_member" "viewers" {
 variable "project" {}
 
 variable "editors" {
-  type = list(string)
+  type    = list(string)
+  default = []
 }
 
 variable "owners" {
-  type = list(string)
+  type    = list(string)
+  default = []
 }
 
 variable "viewers" {
-  type = list(string)
+  type    = list(string)
+  default = []
 }

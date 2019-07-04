@@ -7,7 +7,7 @@ resource "google_container_cluster" "primary" {
   node_config {
 	  machine_type = "n1-standard-1"
     
-    metadata {
+    metadata = {
       disable-legacy-endpoints = "true"
     }
 
@@ -18,8 +18,8 @@ resource "google_container_cluster" "primary" {
   }
 }
 
-variable "project" {}
 variable "name" {}
+variable "project" {}
 
 variable "location" {
   default = "europe-west2-a"
