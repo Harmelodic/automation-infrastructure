@@ -1,11 +1,11 @@
 resource "google_container_cluster" "primary" {
   name               = var.name
-  initial_node_count = 3
+  initial_node_count = 1
   location           = var.location
   project            = var.project
 
   node_config {
-	  machine_type = "n1-standard-1"
+	machine_type = "n1-standard-1"
     
     metadata {
       disable-legacy-endpoints = "true"
