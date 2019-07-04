@@ -17,14 +17,14 @@ test:
 
 package:
   image: hashicorp/terraform:light
-  stage: test
+  stage: package
   script:
   - terraform init
   - terraform plan
 
 deploy:
   image: hashicorp/terraform:light
-  stage: test
+  stage: deploy
   script:
   - terraform init
   - terraform plan
