@@ -8,8 +8,23 @@ stages:
   - package
   - deploy
 
-run-test:
-  image: terraform:light
+test:
+  image: hashicorp/terraform:light
   stage: test
   script:
   - terraform init
+  - terraform plan
+
+package:
+  image: hashicorp/terraform:light
+  stage: test
+  script:
+  - terraform init
+  - terraform plan
+
+deploy:
+  image: hashicorp/terraform:light
+  stage: test
+  script:
+  - terraform init
+  - terraform plan
