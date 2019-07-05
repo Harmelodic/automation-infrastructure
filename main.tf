@@ -1,3 +1,8 @@
+module "cloudsql" {
+  source   = "./gcp/cloudsql"
+  name     = "example"
+}
+
 module "firewall" {
   source   = "./gcp/firewall"
   name     = "example"
