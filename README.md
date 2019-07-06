@@ -1,3 +1,3 @@
 # Ops
 
-Reusable Terraform Modules and other Ops scripts for Ops automation
+Reusable Terraform Modules and other scripts for Ops automation
