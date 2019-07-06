@@ -1,6 +1,7 @@
 resource "google_sql_database_instance" "master" {
   name = var.name
   database_version = var.database_version
+  project = var.project
   region = var.region
 
   settings {

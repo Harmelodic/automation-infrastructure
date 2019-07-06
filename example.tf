@@ -1,6 +1,7 @@
 module "cloudsql" {
   source   = "./gcp/cloudsql"
   name     = "example"
+  project  = "example-project"
 }
 
 module "firewall" {
