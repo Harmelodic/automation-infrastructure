@@ -1,11 +1,11 @@
 module "cloudsql" {
-  source   = "./gcp/cloudsql"
+  source   = "./cloudsql"
   name     = "example"
   project  = "example-project"
 }
 
 module "firewall" {
-  source   = "./gcp/firewall"
+  source   = "./firewall"
   name     = "example"
   network  = "example-network"
   project  = "example-project"
@@ -22,13 +22,13 @@ module "firewall" {
 }
 
 module "gke" {
-  source  = "./gcp/gke"
+  source  = "./gke"
   name    = "example-gke"
   project = "example-project" 
 }
 
 module "iam-policy" {
-  source  = "./gcp/iam-policy"
+  source  = "./iam-policy"
   project = "example-project"
   owners  = [
     "matt@harmelodic.com"
@@ -36,7 +36,7 @@ module "iam-policy" {
 }
 
 module "iam-role" {
-  source      = "./gcp/iam-role"
+  source      = "./iam-role"
   permissions = ["compute.networks.get"]
   project     = "example-project"
   role_id     = "exampleUser"
@@ -44,7 +44,7 @@ module "iam-role" {
 }
 
 module "network-peering" {
-  source               = "./gcp/network-peering"
+  source               = "./network-peering"
   network              = "example-network"
   network_project      = "example-project"
   peer_network         = "example-network-two"

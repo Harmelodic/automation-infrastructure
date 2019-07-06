@@ -1,3 +1,3 @@
-# terraform
+# Ops
 
-Reusable Terraform Module Templates
+Reusable Terraform Modules and other Ops scripts for Ops automation
