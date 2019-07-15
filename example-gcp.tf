@@ -38,7 +38,7 @@ module "iam-policy" {
   source  = "./gcp/iam-policy"
   project = "example-project"
   owners  = [
-    "matt@harmelodic.com"
+    "user:matt@harmelodic.com"
   ]
 }
 
