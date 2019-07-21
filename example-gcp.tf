@@ -5,17 +5,21 @@ terraform {
   }
 }
 
+provider "google" {
+  project     = "example-project"
+  region      = "europe-west2"
+  zone        = "europe-west2-a"
+}
+
 module "cloudsql" {
   source   = "./gcp/cloudsql"
   name     = "example"
-  project  = "example-project"
 }
 
 module "firewall" {
   source   = "./gcp/firewall"
   name     = "example"
   network  = "example-network"
-  project  = "example-project"
   protocol = "TCP"
   ports    = [
     "80", "443"
@@ -31,12 +35,10 @@ module "firewall" {
 module "gke" {
   source  = "./gcp/gke"
   name    = "example-gke"
-  project = "example-project" 
 }
 
 module "iam-policy" {
   source  = "./gcp/iam-policy"
-  project = "example-project"
   owners  = [
     "user:matt@harmelodic.com"
   ]
@@ -45,7 +47,6 @@ module "iam-policy" {
 module "iam-role" {
   source      = "./gcp/iam-role"
   permissions = ["compute.networks.get"]
-  project     = "example-project"
   role_id     = "exampleUser"
   title       = "Example User"
 }

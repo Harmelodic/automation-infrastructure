@@ -1,5 +1,4 @@
 resource "google_compute_firewall" "default" {
-  project       = var.project
   name          = var.name
   network       = var.network
   source_ranges = var.source_ranges
@@ -13,7 +12,6 @@ resource "google_compute_firewall" "default" {
 
 variable "name" {}
 variable "network" {}
-variable "project" {}
 variable "protocol" {}
 
 variable "ports" {
