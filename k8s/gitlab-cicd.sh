@@ -2,7 +2,7 @@
 
 kubectl create serviceaccount gitlab
 
-kubectl create rolebinding gitlab-editor --clusterrole=edit --serviceaccount=default:gitlab
+kubectl create clusterrolebinding gitlab-editor --clusterrole=edit --serviceaccount=default:gitlab
 
 SECRET=kubectl get secrets | grep gitlab-token- | awk '{print $1;}'
 
