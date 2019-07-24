@@ -7,6 +7,10 @@ resource "google_sql_database_instance" "master" {
   }
 }
 
+output "connection_name" {
+  value = google_sql_database_instance.master.connection_name
+}
+
 variable "name" {}
 
 variable "database_version" {

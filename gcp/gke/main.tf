@@ -17,6 +17,10 @@ resource "google_container_cluster" "primary" {
   }
 }
 
+output "name" {
+  value = google_container_cluster.primary.name
+}
+
 variable "name" {}
 
 variable "location" {

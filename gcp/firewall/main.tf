@@ -10,6 +10,10 @@ resource "google_compute_firewall" "default" {
   }
 }
 
+output "name" {
+  value = google_compute_firewall.default.name
+}
+
 variable "name" {}
 variable "network" {}
 variable "protocol" {}
