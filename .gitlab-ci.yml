@@ -8,11 +8,11 @@ stages:
   - package
   - deploy
 
-# test:
-#   image: hashicorp/terraform:light
-#   stage: test
-#   script:
-#   - terraform init
+test:
+  image: hashicorp/terraform:light
+  stage: test
+  script:
+  - terraform init
 #   - terraform plan
 
 # package:
