@@ -4,7 +4,7 @@ resource "google_container_cluster" "primary" {
   location           = var.location
 
   node_config {
-	  machine_type = "n1-standard-1"
+	machine_type = var.machine_type
     
     metadata = {
       disable-legacy-endpoints = "true"
@@ -25,4 +25,8 @@ variable "name" {}
 
 variable "location" {
   default = "europe-west2-a"
+}
+
+variable "machine_type" {
+  default = "n1-standard-1"
 }
