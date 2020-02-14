@@ -18,14 +18,10 @@ if [[ $# -eq 0 ]] || [[ $# -eq 1 ]] || [[ $# -eq 2 ]]; then
 fi
 
 if [[ $# -eq 3 ]]; then
-    helm install \
-        --name cert-manager \
-        --namespace kube-system \
-        stable/cert-manager
+    kubectl create secret generic cert-manager-route53 \
+      --from-literal=secret-access-key=$SECRET_ACCESS_KEY
 
-    kubectl create secret generic cert-manager-route53 --from-literal=secret-access-key=$SECRET_ACCESS_KEY
-
-    ISSUER=`cat "cert-manager-issuer.template.yaml" | sed "s/{{HOSTED_ZONE_ID}}/$HOSTED_ZONE_ID/g"`
+    ISSUER=`cat "route53-issuer.template.yaml" | sed "s/{{HOSTED_ZONE_ID}}/$HOSTED_ZONE_ID/g"`
     ISSUER=`echo "$ISSUER" | sed "s/{{ACCESS_KEY_ID}}/$ACCESS_KEY_ID/g"`
 
     echo "$ISSUER" | kubectl apply -f -
@@ -39,9 +35,7 @@ if [[ $# -eq 3 ]]; then
     annotations:
       # ...
       kubernetes.io/tls-acme: "true"
-      certmanager.k8s.io/acme-dns01-provider: route53
-      certmanager.k8s.io/acme-challenge-type: dns01
-      certmanager.k8s.io/issuer: letsencrypt-staging
+      cert-manager.io/issuer: letsencrypt
     # ...
     spec:
       # ...

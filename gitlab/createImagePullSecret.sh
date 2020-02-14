@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOKEN_NAME=$1
+APP_NAME=$1
 TOKEN_USERNAME=$2
 TOKEN_PASSWORD=$3
 
@@ -10,7 +10,7 @@ if [[ $# -eq 0 ]] || [[ $# -eq 1 ]] || [[ $# -eq 2 ]]; then
     echo "Not enough arguments supplied!"
     echo ""
     echo "Run this script with the following arguments:"
-    echo "./$ME TOKEN_NAME TOKEN_USERNAME TOKEN_PASSWORD"
+    echo "./$ME APP_NAME TOKEN_USERNAME TOKEN_PASSWORD"
     echo ""
     echo "Read about creating Deploy Tokens here: https://docs.gitlab.com/ee/user/project/deploy_tokens/"
     echo ""
@@ -18,7 +18,7 @@ if [[ $# -eq 0 ]] || [[ $# -eq 1 ]] || [[ $# -eq 2 ]]; then
 fi
 
 if [[ $# -eq 3 ]]; then
-    kubectl create secret docker-registry $TOKEN_NAME \
+    kubectl create secret docker-registry $APP_NAME-registry-deploy-token \
         --docker-server=registry.gitlab.com \
         --docker-username=$TOKEN_USERNAME \
         --docker-password=$TOKEN_PASSWORD \
