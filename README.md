@@ -1,3 +1,3 @@
 # Ops
 
-Ops code for my personal projects
+Ops code for personal projects
