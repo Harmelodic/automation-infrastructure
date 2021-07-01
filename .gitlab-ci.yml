@@ -1,17 +1,21 @@
-image: hashicorp/terraform:light
+image:
+  name: hashicorp/terraform:light
+  entrypoint:
+    - /usr/bin/env
+    - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 stages:
   - deploy
 
 terraform-prod:
   stage: deploy
-  variables:
-    GOOGLE_APPLICATION_CREDENTIALS: service-account.json
+  before_script:
+    - echo $GOOGLE_SA_JSON > service-account.json
+    - export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service-account.json
   script:
-    - init
-    - workspace new prod
-    - workspace select prod
-    - plan -out=plan.tfplan
-    - apply plan.tfplan -auto-approve -input=false
+    - terraform init
+    - terraform workspace select prod || terraform workspace new prod
+    - terraform plan -out=plan.tfplan
+    - terraform apply plan.tfplan -auto-approve -input=false
   only:
     - master
