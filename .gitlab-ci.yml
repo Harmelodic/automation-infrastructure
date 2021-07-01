@@ -1,30 +1,11 @@
-image: docker:latest
+image: hashicorp/terraform:light
 
-variables:
-  DOCKER_DRIVER: overlay
-
-stages:
-  - test
-  - package
-  - deploy
-
-test:
-  image: hashicorp/terraform:light
-  stage: test
+terraform-prod:
+  before_script:
+    - echo $GOOGLE_SA_JSON > service_account.json
+    - export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service_account.json
   script:
-  - terraform init
-#   - terraform plan
-
-# package:
-#   image: hashicorp/terraform:light
-#   stage: package
-#   script:
-#   - terraform init
-#   - terraform plan
-
-# deploy:
-#   image: hashicorp/terraform:light
-#   stage: deploy
-#   script:
-#   - terraform init
-#   - terraform plan
+    - terraform init
+    - terraform workspace select prod || terraform workspace new prod
+    - terraform plan -out=plan.tfplan
+    - terraform apply plan.tfplan -auto-approve -input=false
