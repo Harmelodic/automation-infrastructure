@@ -1,12 +1,12 @@
 #!/bin/bash
 
 PROJECT_ID=harm-personal-projects
-NAME=terraform
-FULL_SERVICE_ACCOUNT_IDENTIFIER=$NAME@$PROJECT_ID.iam.gserviceaccount.com
+SERVICE_ACCOUNT_NAME=terraform
+FULL_SERVICE_ACCOUNT_IDENTIFIER=$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com
 
 if [ "$1" == "create" ];
 then
-	gcloud iam service-accounts create $NAME \
+	gcloud iam service-accounts create $SERVICE_ACCOUNT_NAME \
 		--project=$PROJECT_ID
 
 	gcloud projects add-iam-policy-binding $PROJECT_ID \
