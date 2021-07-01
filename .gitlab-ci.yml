@@ -15,7 +15,8 @@ terraform-prod:
   script:
     - terraform init
     - terraform workspace select prod || terraform workspace new prod
+    - terraform validate
     - terraform plan -out=plan.tfplan
-    - terraform apply plan.tfplan -auto-approve -input=false
+    - terraform apply plan.tfplan
   only:
     - master
