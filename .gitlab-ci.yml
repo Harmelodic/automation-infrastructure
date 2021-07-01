@@ -1,6 +1,10 @@
 image: hashicorp/terraform:light
 
+stages:
+  - deploy
+
 terraform-prod:
+  stage: deploy
   before_script:
     - echo $GOOGLE_SA_JSON > service_account.json
     - export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service_account.json
