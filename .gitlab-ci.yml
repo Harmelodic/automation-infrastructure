@@ -1,15 +1,25 @@
 image: hashicorp/terraform:light
 
 stages:
+  - credentials
   - deploy
+
+google-creds:
+  image: alpine:latest
+  stage: credentials
+  script:
+    - echo $GOOGLE_SA_JSON > /tmp/service-account.json
+  artifacts:
+    paths:
+      - /tmp/service-account.json
 
 terraform-prod:
   stage: deploy
-  before_script:
-    - echo $GOOGLE_SA_JSON > service_account.json
-    - export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service_account.json
+  variables:
+    GOOGLE_APPLICATION_CREDENTIALS: /tmp/service-account.json
   script:
-    - terraform init
-    - terraform workspace select prod || terraform workspace new prod
-    - terraform plan -out=plan.tfplan
-    - terraform apply plan.tfplan -auto-approve -input=false
+    - init
+    - workspace new prod
+    - workspace select prod
+    - plan -out=plan.tfplan
+    - apply plan.tfplan -auto-approve -input=false
