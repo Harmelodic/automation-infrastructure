@@ -1,5 +1,10 @@
 //resource "google_container_cluster" "main" {
-//  name = terraform.workspace
+//  name              = terraform.workspace
+//  cluster_ipv4_cidr = "10.0.0.0/14"
+//
+//  addons_config {
+//
+//  }
 //}
 //
 //resource "google_service_account" "node_pool" {
