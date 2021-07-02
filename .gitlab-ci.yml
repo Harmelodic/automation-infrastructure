@@ -13,10 +13,10 @@ terraform-prod:
     - echo $GOOGLE_SA_JSON > service-account.json
     - export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service-account.json
   script:
-    - terraform init
-    - terraform workspace select prod || terraform workspace new prod
-    - terraform validate
-    - terraform plan -out=plan.tfplan
-    - terraform apply plan.tfplan
+    - terraform -chdir=src init
+    - terraform -chdir=src workspace select prod || terraform workspace new prod
+    - terraform -chdir=src validate
+    - terraform -chdir=src plan -out=plan.tfplan -var 'project=$GCP_PROJECT'
+    - terraform -chdir=src apply plan.tfplan
   only:
     - master
