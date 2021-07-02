@@ -26,7 +26,6 @@
 //    machine_type    = var.gke_node_pool_machine_type
 //    service_account = google_service_account.node_pool.email
 //
-//    // TODO: Reduce access of node pool service account
 //    oauth_scopes = [
 //      "https://www.googleapis.com/auth/cloud-platform"
 //    ]
