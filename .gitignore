@@ -3,3 +3,4 @@ src/.terraform/
 *.tfstate.backup
 service_account.json
 plan.tfplan
+*.tfvars
