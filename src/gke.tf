@@ -3,7 +3,7 @@ resource "google_container_cluster" "gke_cluster" {
   enable_binary_authorization = false
   enable_intranode_visibility = false
   enable_legacy_abac          = false
-  enable_shielded_nodes       = false
+  enable_shielded_nodes       = true
   enable_tpu                  = false
   initial_node_count          = 1
   location                    = var.gke_location
@@ -32,7 +32,7 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   cluster_autoscaling {
-    enabled = false
+    enabled = true
   }
 
   ip_allocation_policy {
