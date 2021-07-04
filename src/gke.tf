@@ -120,18 +120,18 @@ resource "google_compute_network" "gke" {
 
 resource "google_compute_subnetwork" "gke" {
   name          = "${terraform.workspace}-gke-subnetwork"
-  ip_cidr_range = "10.0.0.0/8"
+  ip_cidr_range = "10.255.0.0/16"
   region        = var.region
   network       = google_compute_network.gke.id
 
   secondary_ip_range {
     range_name    = "cluster-secondary-range"
-    ip_cidr_range = "10.0.0.0/14"
+    ip_cidr_range = "10.0.0.0/10"
   }
 
   secondary_ip_range {
     range_name    = "services-secondary-range"
-    ip_cidr_range = "10.4.0.0/14"
+    ip_cidr_range = "10.64.0.0/10"
   }
 }
 
@@ -142,7 +142,7 @@ resource "google_service_account" "gke_node_pool" {
 }
 
 resource "google_project_iam_member" "gke_node_pool" {
-  member = google_service_account.gke_node_pool.email
+  member = "serviceAccount:${google_service_account.gke_node_pool.email}"
   role   = "roles/viewer"
 }
 
