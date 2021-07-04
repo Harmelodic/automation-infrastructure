@@ -36,7 +36,7 @@ resource "google_container_cluster" "gke_cluster" {
 
     resource_limits {
       maximum = 3
-      minimum = 0.5
+      minimum = 1
       resource_type = "cpu"
     }
 
