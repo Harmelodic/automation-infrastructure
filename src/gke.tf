@@ -32,19 +32,7 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   cluster_autoscaling {
-    enabled = true
-
-    resource_limits {
-      maximum = 3
-      minimum = 1
-      resource_type = "cpu"
-    }
-
-    resource_limits {
-      maximum = 10
-      minimum = 1
-      resource_type = "memory"
-    }
+    enabled = false
   }
 
   ip_allocation_policy {
@@ -80,12 +68,8 @@ resource "google_container_node_pool" "gke_node_pool" {
   initial_node_count = 1
   location           = var.gke_location
   name               = terraform.workspace
+  node_count         = 1
   node_locations     = var.gke_node_locations
-
-  autoscaling {
-    max_node_count = 1
-    min_node_count = 1
-  }
 
   management {
     auto_repair  = true
