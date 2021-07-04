@@ -33,6 +33,18 @@ resource "google_container_cluster" "gke_cluster" {
 
   cluster_autoscaling {
     enabled = true
+
+    resource_limits {
+      maximum = 3
+      minimum = 0.5
+      resource_type = "cpu"
+    }
+
+    resource_limits {
+      maximum = 10
+      minimum = 1
+      resource_type = "memory"
+    }
   }
 
   ip_allocation_policy {
