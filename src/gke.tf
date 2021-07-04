@@ -10,11 +10,12 @@ resource "google_container_cluster" "gke_cluster" {
   logging_service             = "logging.googleapis.com/kubernetes"
   min_master_version          = "1.20.6"
   name                        = terraform.workspace
-  network                     = google_compute_network.gke_network.self_link
+  network                     = google_compute_network.gke.self_link
   remove_default_node_pool    = true
   resource_labels             = {
     environment = terraform.workspace
   }
+  subnetwork                  = google_compute_subnetwork.gke.self_link
 
   addons_config {
     horizontal_pod_autoscaling {
@@ -35,8 +36,8 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   ip_allocation_policy {
-    cluster_ipv4_cidr_block  = "10.0.0.0/14"
-    services_ipv4_cidr_block = "10.4.0.0/14"
+    cluster_secondary_range_name = "cluster_secondary_range"
+    services_secondary_range_name = "services_secondary_range"
   }
 
   maintenance_policy {
@@ -109,7 +110,7 @@ resource "google_container_node_pool" "gke_node_pool" {
   }
 }
 
-resource "google_compute_network" "gke_network" {
+resource "google_compute_network" "gke" {
   auto_create_subnetworks         = false
   delete_default_routes_on_create = false
   description                     = "Compute Network for GKE nodes"
@@ -117,9 +118,26 @@ resource "google_compute_network" "gke_network" {
   routing_mode                    = "GLOBAL"
 }
 
+resource "google_compute_subnetwork" "gke" {
+  name          = "${terraform.workspace}-gke-subnetwork"
+  ip_cidr_range = "10.0.0.0/8"
+  region        = var.region
+  network       = google_compute_network.gke.id
+
+  secondary_ip_range {
+    range_name    = "cluster_secondary_range"
+    ip_cidr_range = "10.0.0.0/14"
+  }
+
+  secondary_ip_range {
+    range_name    = "services_secondary_range"
+    ip_cidr_range = "10.4.0.0/14"
+  }
+}
+
 resource "google_service_account" "gke_node_pool" {
   account_id   = "${terraform.workspace}-node-pool"
-  description = "The default service account for pods to use"
+  description  = "The default service account for pods to use"
   display_name = "GKE Node Pool Service Account"
 }
 
