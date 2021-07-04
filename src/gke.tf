@@ -36,8 +36,8 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   ip_allocation_policy {
-    cluster_secondary_range_name = "cluster_secondary_range"
-    services_secondary_range_name = "services_secondary_range"
+    cluster_secondary_range_name  = "cluster-secondary-range"
+    services_secondary_range_name = "services-secondary-range"
   }
 
   maintenance_policy {
@@ -125,12 +125,12 @@ resource "google_compute_subnetwork" "gke" {
   network       = google_compute_network.gke.id
 
   secondary_ip_range {
-    range_name    = "cluster_secondary_range"
+    range_name    = "cluster-secondary-range"
     ip_cidr_range = "10.0.0.0/14"
   }
 
   secondary_ip_range {
-    range_name    = "services_secondary_range"
+    range_name    = "services-secondary-range"
     ip_cidr_range = "10.4.0.0/14"
   }
 }
