@@ -16,7 +16,10 @@ terraform-prod:
     - terraform -chdir=src init
     - terraform -chdir=src workspace select prod || terraform workspace new prod
     - terraform -chdir=src validate
-    - terraform -chdir=src plan -out=plan.tfplan -var 'project=$GCP_PROJECT'
+    - terraform -chdir=src plan -out=plan.tfplan \
+          -var 'project=$GCP_PROJECT' \
+          -var 'gke_location=$GKE_LOCATION' \
+          -var 'gke_node_locations=$GKE_NODE_LOCATIONS'
     - terraform -chdir=src apply plan.tfplan
   only:
     - master
