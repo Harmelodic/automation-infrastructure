@@ -131,7 +131,7 @@ resource "google_project_iam_member" "gke_node_pool" {
 variable "gke_node_pool_machine_type" {
   default     = "g1-small"
   description = "Machine size for GKE node pool"
-  sensitive   = false
+  sensitive   = true
   type        = string
 }
 

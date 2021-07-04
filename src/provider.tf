@@ -28,6 +28,6 @@ variable "project" {
 variable "region" {
   default     = "europe-north1"
   description = "GCP Region"
-  sensitive   = false
+  sensitive   = true
   type        = string
 }
