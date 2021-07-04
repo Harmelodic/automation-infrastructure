@@ -15,7 +15,8 @@ terraform-prod:
     - echo "$PROD_VARS" > src/prod.tfvars
   script:
     - terraform -chdir=src init
-    - terraform -chdir=src workspace select prod || terraform workspace new prod
+    - terraform -chdir=src workspace select prod ||
+      terraform -chdir=src workspace new prod
     - terraform -chdir=src validate
     - terraform -chdir=src plan -out=plan.tfplan -var-file=prod.tfvars
     - terraform -chdir=src apply plan.tfplan

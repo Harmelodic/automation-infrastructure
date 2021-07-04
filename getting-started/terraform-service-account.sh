@@ -16,6 +16,11 @@ then
 			--role=roles/editor \
 			--project="$PROJECT_ID"
 
+		gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+			--member=serviceAccount:"$FULL_SERVICE_ACCOUNT_IDENTIFIER" \
+			--role=roles/resourcemanager.projectIamAdmin \
+			--project="$PROJECT_ID"
+
 		gcloud iam service-accounts keys create service_account.json \
 			--iam-account="$FULL_SERVICE_ACCOUNT_IDENTIFIER" \
 			--project="$PROJECT_ID"
