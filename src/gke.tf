@@ -27,7 +27,7 @@ resource "google_container_cluster" "gke_cluster" {
     }
 
     network_policy_config {
-      disabled = false
+      disabled = true
     }
   }
 
