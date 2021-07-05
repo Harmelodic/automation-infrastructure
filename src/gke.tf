@@ -1,10 +1,10 @@
 resource "google_container_cluster" "gke_cluster" {
   description                 = "GKE Cluster for personal projects"
-  enable_binary_authorization = false
-  enable_intranode_visibility = false
-  enable_legacy_abac          = false
-  enable_shielded_nodes       = true
-  enable_tpu                  = false
+//  enable_binary_authorization = false
+//  enable_intranode_visibility = false
+//  enable_legacy_abac          = false
+//  enable_shielded_nodes       = true
+//  enable_tpu                  = false
   initial_node_count          = 1
   location                    = var.gke_location
   logging_service             = "logging.googleapis.com/kubernetes"
@@ -17,42 +17,42 @@ resource "google_container_cluster" "gke_cluster" {
   }
   subnetwork                  = google_compute_subnetwork.gke.self_link
 
-  addons_config {
-    horizontal_pod_autoscaling {
-      disabled = false
-    }
-
-    http_load_balancing {
-      disabled = false
-    }
-
-    network_policy_config {
-      disabled = true
-    }
-  }
-
-  cluster_autoscaling {
-    enabled = false
-  }
+//  addons_config {
+//    horizontal_pod_autoscaling {
+//      disabled = false
+//    }
+//
+//    http_load_balancing {
+//      disabled = false
+//    }
+//
+//    network_policy_config {
+//      disabled = true
+//    }
+//  }
+//
+//  cluster_autoscaling {
+//    enabled = false
+//  }
 
   ip_allocation_policy {
     cluster_secondary_range_name  = "cluster-secondary-range"
     services_secondary_range_name = "services-secondary-range"
   }
 
-  maintenance_policy {
-    daily_maintenance_window {
-      start_time = "00:00"
-    }
-  }
-
-  private_cluster_config {
-    enable_private_endpoint = false
-  }
-
-  network_policy {
-    enabled = false
-  }
+//  maintenance_policy {
+//    daily_maintenance_window {
+//      start_time = "00:00"
+//    }
+//  }
+//
+//  private_cluster_config {
+//    enable_private_endpoint = false
+//  }
+//
+//  network_policy {
+//    enabled = false
+//  }
 
   release_channel {
     channel = "RAPID"

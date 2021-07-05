@@ -29,10 +29,10 @@ resource "google_container_node_pool" "gke_node_pool" {
       terraform.workspace
     ]
 
-    shielded_instance_config {
-      enable_integrity_monitoring = true
-      enable_secure_boot          = true
-    }
+//    shielded_instance_config {
+//      enable_integrity_monitoring = true
+//      enable_secure_boot          = true
+//    }
   }
 
   upgrade_settings {
