@@ -15,24 +15,27 @@ resource "google_container_node_pool" "gke_node_pool" {
     disk_size_gb    = 100
     disk_type       = "pd-standard"
     image_type      = "cos_containerd"
-    labels          = {
-      environment = terraform.workspace
-    }
     local_ssd_count = 0
     machine_type    = var.gke_node_pool_machine_type
-    metadata        = {
-      disable-legacy-endpoints = true
-    }
     preemptible     = false
     service_account = google_service_account.gke_node_pool.email
-    tags            = [
+
+    labels = {
+      environment = terraform.workspace
+    }
+
+    metadata = {
+      disable-legacy-endpoints = true
+    }
+
+    tags = [
       terraform.workspace
     ]
 
-//    shielded_instance_config {
-//      enable_integrity_monitoring = true
-//      enable_secure_boot          = true
-//    }
+    shielded_instance_config {
+      enable_integrity_monitoring = true
+      enable_secure_boot          = true
+    }
   }
 
   upgrade_settings {

@@ -12,7 +12,6 @@ terraform-prod:
   before_script:
     - echo $GOOGLE_SA_JSON > service-account.json
     - export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service-account.json
-    - echo "$PROD_VARS" > src/prod.tfvars
   script:
     - terraform -chdir=src init
     - terraform -chdir=src workspace select prod ||
