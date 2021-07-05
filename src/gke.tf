@@ -59,7 +59,7 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   workload_identity_config {
-    identity_namespace = "${var.project}.svc.id.goog"
+    identity_namespace = "${var.project_id}.svc.id.goog"
   }
 }
 

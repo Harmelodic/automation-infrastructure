@@ -15,11 +15,11 @@ terraform {
 }
 
 provider "google" {
-  project = var.project
+  project = var.project_id
   region  = var.region
 }
 
-variable "project" {
+variable "project_id" {
   description = "GCP Project ID"
   sensitive   = true
   type        = string
