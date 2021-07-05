@@ -1,15 +1,14 @@
 resource "google_container_node_pool" "gke_node_pool" {
   cluster            = google_container_cluster.gke_cluster.name
-  initial_node_count = 1
   location           = var.gke_location
   name               = terraform.workspace
   node_count         = 1
   node_locations     = var.gke_node_locations
 
-  management {
-    auto_repair  = true
-    auto_upgrade = true
-  }
+//  management {
+//    auto_repair  = true
+//    auto_upgrade = true
+//  }
 
   node_config {
     disk_size_gb    = 100
@@ -20,28 +19,28 @@ resource "google_container_node_pool" "gke_node_pool" {
     preemptible     = false
     service_account = google_service_account.gke_node_pool.email
 
-    labels = {
-      environment = terraform.workspace
-    }
+//    labels = {
+//      environment = terraform.workspace
+//    }
 
-    metadata = {
-      disable-legacy-endpoints = true
-    }
+//    metadata = {
+//      disable-legacy-endpoints = true
+//    }
 
-    tags = [
-      terraform.workspace
-    ]
+//    tags = [
+//      terraform.workspace
+//    ]
 
-    shielded_instance_config {
-      enable_integrity_monitoring = true
-      enable_secure_boot          = true
-    }
+//    shielded_instance_config {
+//      enable_integrity_monitoring = true
+//      enable_secure_boot          = true
+//    }
   }
 
-  upgrade_settings {
-    max_surge       = 2
-    max_unavailable = 1
-  }
+//  upgrade_settings {
+//    max_surge       = 2
+//    max_unavailable = 1
+//  }
 }
 
 resource "google_service_account" "gke_node_pool" {
