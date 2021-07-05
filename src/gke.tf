@@ -1,5 +1,5 @@
 resource "google_container_cluster" "gke_cluster" {
-  description                 = "GKE Cluster for environment: ${terraform.workspace}"
+  description                 = "GKE Cluster for personal projects"
   enable_binary_authorization = false
   enable_intranode_visibility = false
   enable_legacy_abac          = false
@@ -42,7 +42,7 @@ resource "google_container_cluster" "gke_cluster" {
 
   maintenance_policy {
     daily_maintenance_window {
-      start_time = "03:00"
+      start_time = "00:00"
     }
   }
 
