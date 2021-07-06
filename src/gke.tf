@@ -11,7 +11,7 @@ resource "google_container_cluster" "gke_cluster" {
 //  min_master_version          = "1.20.6"
   name                        = terraform.workspace
   network                     = google_compute_network.gke.self_link
-  remove_default_node_pool    = true
+//  remove_default_node_pool    = true
   subnetwork                  = google_compute_subnetwork.gke.self_link
 
 //  resource_labels = {
