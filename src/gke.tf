@@ -5,14 +5,14 @@ resource "google_container_cluster" "gke_cluster" {
 //  enable_legacy_abac          = false
 //  enable_shielded_nodes       = true
 //  enable_tpu                  = false
-  initial_node_count          = 1
+//  initial_node_count          = 1
   location                    = var.gke_location
-  logging_service             = "logging.googleapis.com/kubernetes"
+//  logging_service             = "logging.googleapis.com/kubernetes"
 //  min_master_version          = "1.20.6"
   name                        = terraform.workspace
-  network                     = google_compute_network.gke.self_link
+//  network                     = google_compute_network.gke.self_link
 //  remove_default_node_pool    = true
-  subnetwork                  = google_compute_subnetwork.gke.self_link
+//  subnetwork                  = google_compute_subnetwork.gke.self_link
 
 //  resource_labels = {
 //    environment = terraform.workspace
@@ -35,11 +35,11 @@ resource "google_container_cluster" "gke_cluster" {
 //  cluster_autoscaling {
 //    enabled = false
 //  }
-
-  ip_allocation_policy {
-    cluster_secondary_range_name  = "cluster-secondary-range"
-    services_secondary_range_name = "services-secondary-range"
-  }
+//
+//  ip_allocation_policy {
+//    cluster_secondary_range_name  = "cluster-secondary-range"
+//    services_secondary_range_name = "services-secondary-range"
+//  }
 
 //  maintenance_policy {
 //    daily_maintenance_window {
