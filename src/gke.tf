@@ -5,7 +5,7 @@ resource "google_container_cluster" "gke_cluster" {
 //  enable_legacy_abac          = false
 //  enable_shielded_nodes       = true
 //  enable_tpu                  = false
-//  initial_node_count          = 1
+  initial_node_count          = 1
   location                    = var.gke_location
 //  logging_service             = "logging.googleapis.com/kubernetes"
 //  min_master_version          = "1.20.6"
