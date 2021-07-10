@@ -79,20 +79,20 @@ resource "google_compute_subnetwork" "gke" {
   region        = var.region
   network       = google_compute_network.gke.id
 
-  secondary_ip_range {
-    range_name    = "cluster-secondary-range"
-    ip_cidr_range = local.cluster_secondary_range
-  }
-
-  secondary_ip_range {
-    range_name    = "services-secondary-range"
-    ip_cidr_range = local.services_secondary_range
-  }
+//  secondary_ip_range {
+//    range_name    = "cluster-secondary-range"
+//    ip_cidr_range = local.cluster_secondary_range
+//  }
+//
+//  secondary_ip_range {
+//    range_name    = "services-secondary-range"
+//    ip_cidr_range = local.services_secondary_range
+//  }
 }
 
 locals {
   cluster_secondary_range  = "10.0.0.0/10"
-  services_secondary_range = "10.64.0.0/10"
+//  services_secondary_range = "10.64.0.0/10"
 }
 
 variable "gke_location" {
