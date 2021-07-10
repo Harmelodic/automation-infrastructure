@@ -80,12 +80,12 @@ resource "google_compute_subnetwork" "gke" {
 
   secondary_ip_range {
     range_name    = local.cluster_secondary_range_name
-    ip_cidr_range = "10.0.0.0/10"
+    ip_cidr_range = "10.0.0.0/12"
   }
 
   secondary_ip_range {
     range_name    = local.services_secondary_range_name
-    ip_cidr_range = "10.64.0.0/10"
+    ip_cidr_range = "10.16.0.0/12"
   }
 }
 
