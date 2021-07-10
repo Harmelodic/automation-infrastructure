@@ -1,5 +1,4 @@
 resource "google_container_cluster" "gke_cluster" {
-  cluster_ipv4_cidr        = local.cluster_secondary_range
   description              = "GKE Cluster for personal projects"
   //  enable_binary_authorization = false
   //  enable_intranode_visibility = false
@@ -37,10 +36,10 @@ resource "google_container_cluster" "gke_cluster" {
   //    enabled = false
   //  }
 
-  //  ip_allocation_policy {
-  //    cluster_secondary_range_name  = "cluster-secondary-range"
-  //    services_secondary_range_name = "services-secondary-range"
-  //  }
+    ip_allocation_policy {
+      cluster_secondary_range_name  = local.cluster_secondary_range_name
+      services_secondary_range_name = local.cluster_secondary_range_name
+    }
 
   //  maintenance_policy {
   //    daily_maintenance_window {
@@ -79,20 +78,20 @@ resource "google_compute_subnetwork" "gke" {
   region        = var.region
   network       = google_compute_network.gke.id
 
-//  secondary_ip_range {
-//    range_name    = "cluster-secondary-range"
-//    ip_cidr_range = local.cluster_secondary_range
-//  }
-//
-//  secondary_ip_range {
-//    range_name    = "services-secondary-range"
-//    ip_cidr_range = local.services_secondary_range
-//  }
+  secondary_ip_range {
+    range_name    = local.cluster_secondary_range_name
+    ip_cidr_range = "10.0.0.0/10"
+  }
+
+  secondary_ip_range {
+    range_name    = local.services_secondary_range_name
+    ip_cidr_range = "10.64.0.0/10"
+  }
 }
 
 locals {
-  cluster_secondary_range  = "10.0.0.0/10"
-//  services_secondary_range = "10.64.0.0/10"
+  cluster_secondary_range_name  = "cluster-secondary-range"
+  services_secondary_range_name = "services-secondary-range"
 }
 
 variable "gke_location" {
