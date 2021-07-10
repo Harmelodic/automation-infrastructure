@@ -38,7 +38,7 @@ resource "google_container_cluster" "gke_cluster" {
 
     ip_allocation_policy {
       cluster_secondary_range_name  = local.cluster_secondary_range_name
-      services_secondary_range_name = local.cluster_secondary_range_name
+      services_secondary_range_name = local.services_secondary_range_name
     }
 
   //  maintenance_policy {
