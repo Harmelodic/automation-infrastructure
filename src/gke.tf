@@ -1,14 +1,15 @@
 resource "google_container_cluster" "gke_cluster" {
+  cluster_ipv4_cidr           = local.cluster_secondary_range
   description                 = "GKE Cluster for personal projects"
-//  enable_binary_authorization = false
-//  enable_intranode_visibility = false
-//  enable_legacy_abac          = false
-//  enable_shielded_nodes       = true
-//  enable_tpu                  = false
+  //  enable_binary_authorization = false
+  //  enable_intranode_visibility = false
+  //  enable_legacy_abac          = false
+  //  enable_shielded_nodes       = true
+  //  enable_tpu                  = false
   initial_node_count          = 1
   location                    = var.gke_location
-//  logging_service             = "logging.googleapis.com/kubernetes"
-//  min_master_version          = "1.20.6"
+  //  logging_service             = "logging.googleapis.com/kubernetes"
+  //  min_master_version          = "1.20.6"
   name                        = terraform.workspace
   network                     = google_compute_network.gke.self_link
   remove_default_node_pool    = true
@@ -35,11 +36,11 @@ resource "google_container_cluster" "gke_cluster" {
 //  cluster_autoscaling {
 //    enabled = false
 //  }
-//
-  ip_allocation_policy {
-    cluster_secondary_range_name  = "cluster-secondary-range"
-    services_secondary_range_name = "services-secondary-range"
-  }
+
+//  ip_allocation_policy {
+//    cluster_secondary_range_name  = "cluster-secondary-range"
+//    services_secondary_range_name = "services-secondary-range"
+//  }
 
 //  maintenance_policy {
 //    daily_maintenance_window {
@@ -80,13 +81,18 @@ resource "google_compute_subnetwork" "gke" {
 
   secondary_ip_range {
     range_name    = "cluster-secondary-range"
-    ip_cidr_range = "10.0.0.0/10"
+    ip_cidr_range = local.cluster_secondary_range
   }
 
   secondary_ip_range {
     range_name    = "services-secondary-range"
-    ip_cidr_range = "10.64.0.0/10"
+    ip_cidr_range = local.services_secondary_range
   }
+}
+
+locals {
+  cluster_secondary_range = "10.0.0.0/10"
+  services_secondary_range = "10.64.0.0/10"
 }
 
 variable "gke_location" {
