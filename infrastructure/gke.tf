@@ -8,7 +8,6 @@ resource "google_container_cluster" "gke_cluster" {
   initial_node_count          = 1
   location                    = var.gke_location
   logging_service             = "logging.googleapis.com/kubernetes"
-  min_master_version          = "1.20.6"
   name                        = terraform.workspace
   network                     = google_compute_network.gke.self_link
   remove_default_node_pool    = true

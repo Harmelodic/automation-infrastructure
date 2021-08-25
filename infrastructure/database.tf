@@ -5,9 +5,9 @@ resource "google_sql_database_instance" "instance" {
   deletion_protection = "true"
 
   settings {
-    tier             = var.db_tier
-    disk_size        = var.db_disk_size
-    disk_type        = "PS_SSD"
+    tier      = var.db_tier
+    disk_size = var.db_disk_size
+    disk_type = "PD_SSD"
 
     backup_configuration {
       enabled  = true
