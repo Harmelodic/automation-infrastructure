@@ -1,10 +1,10 @@
 resource "google_sql_database_instance" "instance" {
   name                = terraform.workspace
   region              = var.region
+  database_version    = "MYSQL_8_0"
   deletion_protection = "true"
 
   settings {
-    database_version = "MYSQL_8_0"
     tier             = var.db_tier
     disk_size        = var.db_disk_size
     disk_type        = "PS_SSD"
