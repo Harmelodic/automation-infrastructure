@@ -20,7 +20,7 @@ resource "google_sql_database_instance" "instance" {
     }
 
     ip_configuration {
-      ipv4_enabled = false
+      ipv4_enabled = true
       require_ssl  = true
     }
 
