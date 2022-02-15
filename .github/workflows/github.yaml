@@ -1,0 +1,28 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+      - run: terraform -chdir=infrastructure init
+      - run: terraform validate
+
+#   deploy-prod:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: hashicorp/setup-terraform@v1
+#         with:
+#           terraform_version: 1.1.5
+#       - run: terraform -chdir=infrastructure init
+#       - run: terraform apply
