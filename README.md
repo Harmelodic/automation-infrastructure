@@ -2,29 +2,26 @@
 
 Ops code for personal projects
 
-## Getting Started
+## Init Infrastructure
 
-Before actually creating real infrastructure automatically, we need to create a Service Account for Terraform to use, as well as a Storage bucket for Terraform to store state in.
+Before actually creating real infrastructure automatically, we need to set up some things for the CICD tool (GitHub Actions/GitLab CI/whatever) to use when running Terraform, or any other Google API calls.  
+This means we need to:
 
-The `getting-started` directory is where we make this happen, as is intended to be run locally against Google Cloud.
+- Create a GCP Project to create this infrastructure in.
+- Enable some initial APIs.
+- Create a Service Account for CICD to use.
+- Create a Workload Identity Federation for our CICD tool to authenticate with GCP.
+- Give IAM permissions to the Service Account.
+- Create a Storage bucket for Terraform to store state in.
+
+The `init-infrastructure` directory is where we make this happen, as is intended to be run locally against Google Cloud.
 
 Requirements to run:
-- Google Cloud Organisation Admin
+- Be a Google Cloud Organisation Admin for `harmelodic.com`
 - Google Cloud SDK installed
-
-In the `getting-started` directory, there are 2 scripts.
-
-Run both.
-
-```shell
-./getting-started/terraform-service-account.sh create \
-    GCP_PROJECT_ID
-
-./getting-started/terraform-state-bucket.sh create \
-    GCP_PROJECT_ID \
-    BUCKET_NAME \
-    REGION
-```
+- `gcloud auth login`
+- `gcloud auth application-default login`
+- Terraform installed
 
 ## Infrastructure
 
