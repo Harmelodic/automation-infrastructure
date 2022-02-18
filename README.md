@@ -31,4 +31,4 @@ Inside the `infrastructure` directory is where the central infrastructure is def
 - Kubernetes Cluster & Node pool
 - Central Database for re-use (since I'm too cheap to do proper microservice DB isolation)
 
-This is run in a CI/CD pipeline, using the Storage bucket and Service Account created in the [Getting Started](#Getting_Started) section.
+This is run in a CI/CD pipeline, using the Storage bucket and Service Account created in the [Init Infrastructure](#Init-Infrastructure) section.
