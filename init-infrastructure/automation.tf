@@ -10,15 +10,16 @@ resource "google_project" "automation" {
   auto_create_network = false
 }
 
-resource "google_service_account" "automation" {
-  project      = google_project.automation.id
-  account_id   = "automation"
-  display_name = "automation"
-  description  = "Harmelodic Organisation Automation Service Account"
-}
+resource "google_project_service" "apis" {
+  for_each = toset([
+    "cloudresourcemanager.googleapis.com",
+    "iam.googleapis.com",
+    "iamcredentials.googleapis.com",
+    "storage.googleapis.com",
+    "sts.googleapis.com",
+  ])
 
-resource "google_project_iam_member" "automation" {
-  project = google_project.automation.id
-  role    = "roles/editor"
-  member  = "serviceAccount:${google_service_account.automation.email}"
+  disable_dependent_services = true
+  disable_on_destroy         = true
+  service                    = each.key
 }
