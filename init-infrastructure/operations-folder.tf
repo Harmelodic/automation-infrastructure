@@ -1,6 +1,6 @@
 resource "google_folder" "operations" {
   display_name = "Operations"
-  parent       = data.google_organization.harmelodic_com.name
+  parent       = data.google_organization.harmelodic_com.id
 }
 
 resource "google_folder_iam_member" "automation" {
