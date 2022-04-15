@@ -23,6 +23,13 @@ Requirements to run:
 - `gcloud auth application-default login`
 - Terraform installed
 
+Run:
+
+```shell
+terraform -chdir=init-infrastructure init
+terraform -chdir=init-infrastructure apply
+```
+
 ## Infrastructure
 
 Inside the `infrastructure` directory is where the central infrastructure is defined for personal projects. For example:

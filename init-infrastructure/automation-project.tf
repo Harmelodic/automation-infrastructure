@@ -13,12 +13,13 @@ resource "google_project" "automation" {
 
 resource "google_project_service" "automation_apis" {
   for_each = toset([
+    "artifactregistry.googleapis.com",
+    "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "storage.googleapis.com",
-    "sts.googleapis.com",
-    "cloudkms.googleapis.com"
+    "sts.googleapis.com"
   ])
 
   project                    = google_project.automation.id
