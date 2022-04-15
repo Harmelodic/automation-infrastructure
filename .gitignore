@@ -1,5 +1,4 @@
-infrastructure/.terraform/
-init-infrastructure/.terraform/
+**/.terraform/
 *.tfstate
 *.tfstate.backup
 service_account.json

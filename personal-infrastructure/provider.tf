@@ -1,9 +1,9 @@
 terraform {
-  required_version = ">=1.1.6"
+  required_version = ">=1.1.8"
 
   backend "gcs" {
-    bucket = "harmelodic-terraform-state"
-    prefix = "ops"
+    bucket = "harmelodic-tfstate"
+    prefix = "personal-infrastructure"
   }
 
   required_providers {
@@ -15,14 +15,7 @@ terraform {
 }
 
 provider "google" {
-  project = var.project_id
   region  = var.region
-}
-
-variable "project_id" {
-  description = "GCP Project ID"
-  sensitive   = true
-  type        = string
 }
 
 variable "region" {
