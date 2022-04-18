@@ -20,6 +20,7 @@ resource "google_organization_iam_member" "automation_organisation_perms" {
 
 resource "google_billing_account_iam_member" "automation_billing_perms" {
   for_each = toset([
+    "roles/billing.user",
     "roles/billing.viewer",
   ])
 
