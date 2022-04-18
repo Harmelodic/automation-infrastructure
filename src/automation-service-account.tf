@@ -11,6 +11,7 @@ resource "google_organization_iam_member" "automation_organisation_perms" {
     "roles/editor",
     "roles/resourcemanager.folderAdmin",
     "roles/resourcemanager.organizationViewer",
+    "roles/resourcemanager.projectCreator",
   ])
 
   member = "serviceAccount:${google_service_account.automation.email}"
