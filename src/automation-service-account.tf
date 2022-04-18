@@ -8,6 +8,7 @@ resource "google_service_account" "automation" {
 resource "google_organization_iam_member" "automation_organisation_perms" {
   for_each = toset([
     "roles/billing.projectManager",
+    "roles/compute.xpnAdmin",
     "roles/editor",
     "roles/resourcemanager.folderAdmin",
     "roles/resourcemanager.organizationViewer",
