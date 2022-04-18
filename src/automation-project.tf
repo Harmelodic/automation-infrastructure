@@ -13,13 +13,13 @@ resource "google_project" "automation" {
 
 resource "google_project_service" "automation_apis" {
   for_each = toset([
-    "cloudbilling.googleapis.com",
-    "cloudkms.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
-    "iam.googleapis.com",
-    "iamcredentials.googleapis.com",
-    "storage.googleapis.com",
-    "sts.googleapis.com"
+    "cloudbilling.googleapis.com", # Required for hooking up Cloud Billing to the automation project
+    "cloudkms.googleapis.com", # Required for using CMEK on Terraform state bucket
+    "cloudresourcemanager.googleapis.com", # Required for managing GCP folders
+    "iam.googleapis.com", # Required for managing IAM
+    "iamcredentials.googleapis.com", # Required for handling Service Account tokens (Workload Identity)
+    "storage.googleapis.com", # Required for storing Terraform state
+    "sts.googleapis.com" # Required for handling short-lived Security Tokens
   ])
 
   project                    = google_project.automation.id
