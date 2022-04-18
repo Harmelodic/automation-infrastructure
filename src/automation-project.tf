@@ -13,6 +13,7 @@ resource "google_project" "automation" {
 
 resource "google_project_service" "automation_apis" {
   for_each = toset([
+    "cloudbilling.googleapis.com",
     "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "iam.googleapis.com",
