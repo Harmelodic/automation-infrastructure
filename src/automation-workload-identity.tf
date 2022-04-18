@@ -17,8 +17,8 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
   disabled                           = false
 
   attribute_mapping = {
-    "attribute.aud"  = "assertion.aud",
-    "google.subject" = "assertion.sub"
+    "attribute.repository_owner" = "assertion.repository_owner",
+    "google.subject"             = "assertion.sub"
   }
 
   oidc {
@@ -26,12 +26,8 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
   }
 }
 
-locals {
-  audience = "https://github.com/Harmelodic"
-}
-
 resource "google_service_account_iam_member" "automation_workload_identity_user" {
   service_account_id = google_service_account.automation.id
   role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.automation.name}/attribute.aud/${local.audience}"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.automation.name}/attribute.repository_owner/Harmelodic"
 }
