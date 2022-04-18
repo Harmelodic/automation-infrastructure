@@ -18,6 +18,7 @@ resource "google_project_service" "automation_apis" {
     "cloudresourcemanager.googleapis.com", # Required for managing GCP folders
     "iam.googleapis.com", # Required for managing IAM
     "iamcredentials.googleapis.com", # Required for handling Service Account tokens (Workload Identity)
+    "serviceusage.googleapis.com", # Required as a pre-requisite for creating further projects
     "storage.googleapis.com", # Required for storing Terraform state
     "sts.googleapis.com" # Required for handling short-lived Security Tokens
   ])
