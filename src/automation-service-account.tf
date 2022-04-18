@@ -5,8 +5,8 @@ resource "google_service_account" "automation" {
   description  = "Harmelodic Organisation Automation Service Account"
 }
 
-resource "google_project_iam_member" "automation_project_editor" {
-  project = google_project.automation.id
-  role    = "roles/editor"
-  member  = "serviceAccount:${google_service_account.automation.email}"
+resource "google_organization_iam_member" "automation_organisation_editor" {
+  member = "serviceAccount:${google_service_account.automation.email}"
+  org_id = data.google_organization.harmelodic_com.org_id
+  role   = "roles/editor"
 }
