@@ -20,7 +20,10 @@ resource "google_project_service" "automation_apis" {
     "iamcredentials.googleapis.com", # Required for handling Service Account tokens (Workload Identity)
     "serviceusage.googleapis.com", # Required as a pre-requisite for creating further projects
     "storage.googleapis.com", # Required for storing Terraform state
-    "sts.googleapis.com" # Required for handling short-lived Security Tokens
+    "sts.googleapis.com", # Required for handling short-lived Security Tokens
+
+    # APIs that need enabling for provisioning infra in other projects:
+    "container.googleapis.com", # Required for provisioning GKE clusters
   ])
 
   project                    = google_project.automation.id
