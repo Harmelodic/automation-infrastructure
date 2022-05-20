@@ -21,6 +21,7 @@ resource "google_billing_account_iam_member" "automation_billing_perms" {
   for_each = toset([
     "roles/billing.user",
     "roles/billing.viewer",
+    "roles/iam.serviceAccountViewer",
   ])
 
   billing_account_id = data.google_billing_account.my_billing_account.id
