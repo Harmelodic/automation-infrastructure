@@ -33,3 +33,9 @@ resource "google_storage_bucket" "terraform_state" {
     google_kms_crypto_key_iam_binding.terraform_state
   ]
 }
+
+resource "google_storage_bucket_iam_member" "automation_terraform_state_perms" {
+  bucket = google_storage_bucket.terraform_state.name
+  member = "serviceAccount:${google_service_account.automation.email}"
+  role   = "roles/storage.admin"
+}
