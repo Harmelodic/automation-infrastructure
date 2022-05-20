@@ -5,13 +5,8 @@ resource "google_service_account" "automation" {
   description  = "Harmelodic Organisation Automation Service Account"
 }
 
-// TODO: Refactor to make more fine-grained
-//       and delegate IAM responsibility to infra projects that uses this account
 resource "google_organization_iam_member" "automation_organisation_perms" {
   for_each = toset([
-    "roles/billing.projectManager",
-    "roles/compute.xpnAdmin",
-    "roles/editor",
     "roles/resourcemanager.folderAdmin",
     "roles/resourcemanager.organizationViewer",
     "roles/resourcemanager.projectCreator",
