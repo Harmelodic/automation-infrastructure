@@ -24,6 +24,7 @@ resource "google_project_service" "automation_apis" {
 
     # APIs that need enabling for provisioning infra in other projects:
     "container.googleapis.com", # Required for provisioning GKE clusters
+    "sqladmin.googleapis.com", # Required for provisioning SQL database instances
   ])
 
   project                    = google_project.automation.id
