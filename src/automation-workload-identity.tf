@@ -1,5 +1,4 @@
 resource "google_iam_workload_identity_pool" "automation" {
-  provider                  = google-beta
   project                   = google_project.automation.project_id
   workload_identity_pool_id = "automation"
   display_name              = "Automation"
@@ -9,7 +8,6 @@ resource "google_iam_workload_identity_pool" "automation" {
 
 resource "google_iam_workload_identity_pool_provider" "automation_github" {
   project                            = google_project.automation.project_id
-  provider                           = google-beta
   workload_identity_pool_id          = google_iam_workload_identity_pool.automation.workload_identity_pool_id
   workload_identity_pool_provider_id = "github"
   display_name                       = "GitHub"
