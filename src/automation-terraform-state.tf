@@ -12,7 +12,8 @@ resource "google_kms_crypto_key" "terraform_state" {
 resource "google_kms_crypto_key_iam_binding" "terraform_state" {
   crypto_key_id = google_kms_crypto_key.terraform_state.id
   role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-  members       = [
+
+  members = [
     "serviceAccount:service-${google_project.automation.number}@gs-project-accounts.iam.gserviceaccount.com"
   ]
 }
