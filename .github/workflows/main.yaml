@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
       - run: terraform -chdir=src init -upgrade
       - run: terraform -chdir=src validate
         # Since this is run manually, we're not going to actually run Terraform in a GitHub Action
