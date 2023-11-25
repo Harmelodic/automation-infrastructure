@@ -6,7 +6,7 @@ resource "random_integer" "automation_project_suffix" {
 resource "google_project" "automation" {
   name                = "automation"
   project_id          = "automation-${random_integer.automation_project_suffix.result}"
-  folder_id           = google_folder.automation.id
+  org_id              = data.google_organization.harmelodic_com.org_id
   billing_account     = data.google_billing_account.my_billing_account.id
   auto_create_network = false
 }
