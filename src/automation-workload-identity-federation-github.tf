@@ -42,8 +42,8 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
   }
 }
 
-# Grants automation account to be a "Workload Identity User" for GitHub.
-# Though only in a specific context:
+# Allows automation account to be used as an identity for any GitHub workload.
+# Though only workloads that meet all the criteria:
 # - Repositories owned by Harmelodic
 # - Using the `main` branch (meaning other branches/refs can't provision infrastructure)
 resource "google_service_account_iam_member" "automation_workload_identity_user" {
