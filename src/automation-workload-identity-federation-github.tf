@@ -30,11 +30,10 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
   description                        = "GitHub Provider for GitHub CI/CD automation"
   disabled                           = false
 
-  # GitHub OIDC Token Assertions:
-  # https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#understanding-the-oidc-token
+  # GitHub OIDC Token assertions: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#understanding-the-oidc-token
   attribute_mapping = {
-    # attribute.<custom> = GitHub OIDC Token Assertion
-    "attribute.repository_owner" = "assertion.repository_owner",
+    # attribute.<custom>         = Common Expression Language (made up of GitHub's OIDC Token assertions)
+    "attribute.owner_and_branch" = "assertion.repository_owner + \"::\" + assertion.ref_type + \"::\" + assertion.ref",
     "google.subject"             = "assertion.sub"
   }
 
@@ -43,9 +42,12 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
   }
 }
 
-# Grants automation account to be a "Workload Identity User" for GitHub
+# Grants automation account to be a "Workload Identity User" for GitHub.
+# Though only in a specific context:
+# - Repositories owned by Harmelodic
+# - Using the `main` branch (meaning other branches/refs can't provision infrastructure)
 resource "google_service_account_iam_member" "automation_workload_identity_user" {
   service_account_id = google_service_account.automation.id
   role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.repository_owner/Harmelodic"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.owner_and_branch/Harmelodic::branch::refs/heads/main"
 }
