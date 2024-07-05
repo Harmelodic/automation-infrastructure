@@ -19,7 +19,7 @@ jobs:
       - run: terraform -chdir=src validate
 
         # Since this code creates the Workload Identity Provider & Service Account used in this GitHub Workflow,
-        # the first time this code is run, it needs to be run manually by an Google Cloud Org Admin.
+        # the first time this code is run, it needs to be run manually by a Google Cloud Org Admin.
       - uses: google-github-actions/auth@v2.1.3
         with:
           workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
