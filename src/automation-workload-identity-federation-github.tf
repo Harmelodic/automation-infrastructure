@@ -8,11 +8,11 @@
 # "Represents a collection of external workload identities. You can define IAM policies to grant these identities
 # access to Google Cloud resources."
 # In this case, this Workload Identity Pool is for identities used by GitHub (in GitHub Actions).
-resource "google_iam_workload_identity_pool" "automation" {
+resource "google_iam_workload_identity_pool" "github" {
   project                   = google_project.automation.project_id
-  workload_identity_pool_id = "automation"
-  display_name              = "Automation"
-  description               = "A pool for automation agents"
+  workload_identity_pool_id = "github"
+  display_name              = "GitHub"
+  description               = "A pool for GitHub workloads"
   disabled                  = false
 }
 
@@ -24,7 +24,7 @@ resource "google_iam_workload_identity_pool" "automation" {
 # - A mapping is then made between GitHub's OIDC token "assertions" and Google's Workload Identity "attributes"
 resource "google_iam_workload_identity_pool_provider" "automation_github" {
   project                            = google_project.automation.project_id
-  workload_identity_pool_id          = google_iam_workload_identity_pool.automation.workload_identity_pool_id
+  workload_identity_pool_id          = google_iam_workload_identity_pool.github.workload_identity_pool_id
   workload_identity_pool_provider_id = "github"
   display_name                       = "GitHub"
   description                        = "GitHub Provider for GitHub CI/CD automation"
@@ -43,9 +43,9 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
   }
 }
 
-# Grants automation account to be a "Workload Identity User" for
+# Grants automation account to be a "Workload Identity User" for GitHub
 resource "google_service_account_iam_member" "automation_workload_identity_user" {
   service_account_id = google_service_account.automation.id
   role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.automation.name}/attribute.repository_owner/Harmelodic"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.repository_owner/Harmelodic"
 }
