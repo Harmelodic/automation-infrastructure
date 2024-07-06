@@ -12,7 +12,7 @@ resource "google_iam_workload_identity_pool" "github" {
   project                   = google_project.automation.project_id
   workload_identity_pool_id = "github"
   display_name              = "GitHub"
-  description               = "A pool for GitHub workloads"
+  description               = "A pool for identities used by GitHub workloads (e.g. Actions)"
   disabled                  = false
 }
 
@@ -25,9 +25,9 @@ resource "google_iam_workload_identity_pool" "github" {
 resource "google_iam_workload_identity_pool_provider" "automation_github" {
   project                            = google_project.automation.project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.github.workload_identity_pool_id
-  workload_identity_pool_provider_id = "github"
-  display_name                       = "GitHub"
-  description                        = "GitHub Provider for GitHub CI/CD automation"
+  workload_identity_pool_provider_id = "github-oidc"
+  display_name                       = "GitHub OIDC"
+  description                        = "GitHub OIDC Provider for Workload Identity Federation"
   disabled                           = false
 
   # GitHub OIDC Token assertions: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#understanding-the-oidc-token
