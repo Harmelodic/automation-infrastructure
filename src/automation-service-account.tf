@@ -14,3 +14,11 @@ resource "google_service_account_iam_member" "automation_workload_identity_user"
   role               = "roles/iam.workloadIdentityUser"
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.owner_and_branch/Harmelodic::branch::refs/heads/main"
 }
+
+// Grant automation Service Account to get itself,
+// so that consuming repositories can grant the `automation` SA permissions to manage & provision infrastructure.
+resource "google_service_account_iam_member" "automation_project_perms" {
+  service_account_id = google_service_account.automation.id
+  member             = google_service_account.automation.member
+  role               = "roles/iam.serviceAccountViewer"
+}
