@@ -33,13 +33,3 @@ resource "google_project_service" "automation_apis" {
   disable_dependent_services = true
   disable_on_destroy         = true
 }
-
-resource "google_project_iam_member" "automation_project_perms" {
-  for_each = toset([
-    "roles/iam.serviceAccountViewer",
-  ])
-
-  member  = "serviceAccount:${google_service_account.automation.email}"
-  project = google_project.automation.project_id
-  role    = each.key
-}
