@@ -33,6 +33,7 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
   # GitHub OIDC Token assertions: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#understanding-the-oidc-token
   attribute_mapping = {
     # attribute.<custom>         = Common Expression Language (made up of GitHub's OIDC Token assertions)
+    "attribute.owner"            = "assertion.repository_owner"
     "attribute.owner_and_branch" = "assertion.repository_owner + \"::\" + assertion.ref_type + \"::\" + assertion.ref",
     "google.subject"             = "assertion.sub"
   }
