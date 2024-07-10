@@ -37,6 +37,12 @@ resource "google_storage_bucket" "terraform_state" {
 
 resource "google_storage_bucket_iam_member" "automation_terraform_state_perms" {
   bucket = google_storage_bucket.terraform_state.name
-  member = "serviceAccount:${google_service_account.automation.email}"
+  member = google_service_account.automation.member
   role   = "roles/storage.admin"
+}
+
+resource "google_storage_bucket_iam_member" "automation_for_pull_requests_terraform_state_perms" {
+  bucket = google_storage_bucket.terraform_state.name
+  member = google_service_account.automation_for_pull_requests.member
+  role   = "roles/storage.objectUser"
 }
