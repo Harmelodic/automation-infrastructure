@@ -10,6 +10,6 @@ resource "google_billing_account_iam_member" "automation_billing_perms" {
   ])
 
   billing_account_id = data.google_billing_account.my_billing_account.id
-  member             = "serviceAccount:${google_service_account.automation.email}"
+  member             = google_service_account.automation.member
   role               = each.key
 }

@@ -9,7 +9,7 @@ resource "google_organization_iam_member" "automation_organisation_perms" {
     "roles/resourcemanager.projectCreator",
   ])
 
-  member = "serviceAccount:${google_service_account.automation.email}"
+  member = google_service_account.automation.member
   org_id = data.google_organization.harmelodic_com.org_id
   role   = each.key
 }
