@@ -31,16 +31,16 @@ jobs:
       contents: 'read'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
       - run: terraform -chdir=src fmt -recursive && git diff --exit-code
   terraform-validate:
     permissions:
       contents: 'read'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
       - run: terraform -chdir=src init -upgrade
       - run: terraform -chdir=src validate
       # This code should be run manually by a Google Cloud Org Admin.
