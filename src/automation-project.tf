@@ -11,19 +11,36 @@ resource "google_project" "automation" {
   auto_create_network = false
 }
 
+resource "google_project_iam_audit_config" "automation" {
+  project = google_project.automation.id
+  service = "allServices"
+
+  audit_log_config {
+    log_type = "ADMIN_READ"
+  }
+
+  audit_log_config {
+    log_type = "DATA_READ"
+  }
+
+  audit_log_config {
+    log_type = "DATA_WRITE"
+  }
+}
+
 resource "google_project_service" "automation_apis" {
   for_each = toset([
-    "cloudbilling.googleapis.com", # Required for hooking up Cloud Billing to the automation project
-    "cloudkms.googleapis.com", # Required for using CMEK on Terraform state bucket
+    "cloudbilling.googleapis.com",         # Required for hooking up Cloud Billing to the automation project
+    "cloudkms.googleapis.com",             # Required for using CMEK on Terraform state bucket
     "cloudresourcemanager.googleapis.com", # Required for managing GCP folders
-    "iam.googleapis.com", # Required for managing IAM
-    "iamcredentials.googleapis.com", # Required for handling Service Account tokens (Workload Identity)
-    "serviceusage.googleapis.com", # Required as a pre-requisite for creating further projects
-    "storage.googleapis.com", # Required for storing Terraform state
-    "sts.googleapis.com", # Required for handling short-lived Security Tokens
+    "iam.googleapis.com",                  # Required for managing IAM
+    "iamcredentials.googleapis.com",       # Required for handling Service Account tokens (Workload Identity)
+    "serviceusage.googleapis.com",         # Required as a pre-requisite for creating further projects
+    "storage.googleapis.com",              # Required for storing Terraform state
+    "sts.googleapis.com",                  # Required for handling short-lived Security Tokens
 
     # APIs that need enabling for provisioning infra in other projects:
-    "container.googleapis.com", # Required for provisioning GKE clusters
+    "container.googleapis.com",         # Required for provisioning GKE clusters
     "servicenetworking.googleapis.com", # Required for creating private VPC networking connections
     "sqladmin.googleapis.com"           # Required for provisioning SQL database instances
   ])
