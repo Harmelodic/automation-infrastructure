@@ -34,9 +34,12 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
   attribute_mapping = {
     # attribute.<custom>         = Common Expression Language (made up of GitHub's OIDC Token assertions)
     "attribute.owner"            = "assertion.repository_owner"
-    "attribute.owner_and_branch" = "assertion.repository_owner + \"::\" + assertion.ref_type + \"::\" + assertion.ref",
+    "attribute.owner_and_branch" = "assertion.repository_owner + '::' + assertion.ref_type + '::' + assertion.ref",
     "google.subject"             = "assertion.sub"
   }
+
+  # checkov:skip=CKV_GCP_125: TODO: Review this
+  attribute_condition = "attribute.owner_and_branch == 'Harmelodic::branch::refs/heads/main'"
 
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"

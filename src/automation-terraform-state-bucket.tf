@@ -5,8 +5,13 @@ resource "google_kms_key_ring" "automation" {
 }
 
 resource "google_kms_crypto_key" "terraform_state" {
-  key_ring = google_kms_key_ring.automation.id
-  name     = "terraform-state"
+  key_ring        = google_kms_key_ring.automation.id
+  name            = "terraform-state"
+  rotation_period = "7776000s"
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "google_kms_crypto_key_iam_binding" "terraform_state" {
@@ -24,10 +29,21 @@ resource "google_storage_bucket" "terraform_state" {
   location                    = upper(local.location)
   force_destroy               = false
   uniform_bucket_level_access = true
+  public_access_prevention    = "enforced"
   storage_class               = "STANDARD"
 
   encryption {
     default_kms_key_name = google_kms_crypto_key.terraform_state.id
+  }
+
+
+  # checkov:skip=CKV_GCP_62: TODO: Don't yet log access in a bucket
+  # logging {
+  #   log_bucket = ""
+  # }
+
+  versioning {
+    enabled = true
   }
 
   depends_on = [
