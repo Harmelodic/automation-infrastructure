@@ -8,8 +8,9 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@dd030062661cb2ee7c857959cb64a6e2807f86ce
-  with:
-    directory: src
+  verify:
+    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@dd030062661cb2ee7c857959cb64a6e2807f86ce
+    with:
+      directory: src
 
 # This code should be applied manually by a Google Cloud Org Admin.
