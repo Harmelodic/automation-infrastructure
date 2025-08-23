@@ -49,6 +49,10 @@ resource "google_storage_bucket" "terraform_state" {
   depends_on = [
     google_kms_crypto_key_iam_binding.terraform_state
   ]
+
+  lifecycle {
+    prevent_destroy = true # Bucket contains terraform state, must not delete.
+  }
 }
 
 resource "google_storage_bucket_iam_member" "automation_terraform_state_perms" {

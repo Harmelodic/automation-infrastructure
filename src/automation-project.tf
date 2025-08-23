@@ -9,6 +9,10 @@ resource "google_project" "automation" {
   org_id              = data.google_organization.harmelodic_com.org_id
   billing_account     = data.google_billing_account.my_billing_account.id
   auto_create_network = false
+
+  lifecycle {
+    prevent_destroy = true # Project contains terraform state, must not delete.
+  }
 }
 
 resource "google_project_iam_audit_config" "automation" {
