@@ -40,7 +40,7 @@ resource "google_iam_workload_identity_pool_provider" "automation_github" {
 
   # Limits the identities that come from GitHub OIDC (pool provider) to only those matching the condition
   # checkov:skip=CKV_GCP_125:9994373 is the safe & fixed user ID for Harmelodic. Don't want to limit further.
-  attribute_condition = "assertion.repository_owner_id == 9994373"
+  attribute_condition = "assertion.repository_owner_id == '9994373'"
 
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
