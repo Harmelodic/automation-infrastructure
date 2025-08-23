@@ -36,11 +36,7 @@ resource "google_storage_bucket" "terraform_state" {
     default_kms_key_name = google_kms_crypto_key.terraform_state.id
   }
 
-
-  # checkov:skip=CKV_GCP_62: TODO: Don't yet log access in a bucket
-  # logging {
-  #   log_bucket = ""
-  # }
+  #checkov:skip=CKV_GCP_62:Logging not enabled for this project, access & storage logs not desired.
 
   versioning {
     enabled = true
