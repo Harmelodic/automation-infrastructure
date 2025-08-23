@@ -9,12 +9,11 @@ on:
 
 jobs:
   verify-github-workflows:
-    uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@541e2964bc269db532b73d02671363f55c63d2de
 
   verify-terraform:
-    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@541e2964bc269db532b73d02671363f55c63d2de
     with:
       directory: src
-      google-service-account: automation
 
 # This code should be applied manually by a Google Cloud Org Admin.
