@@ -8,7 +8,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  verify:
+  verify-terraform:
     uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@dd030062661cb2ee7c857959cb64a6e2807f86ce
     with:
       directory: src
