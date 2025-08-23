@@ -1,5 +1,5 @@
 resource "random_integer" "automation_project_suffix" {
-  min = 1
+  min = 100000
   max = 999999
 }
 
